@@ -11,7 +11,9 @@ const App = () => {
       onCommand: (commandData) => {
         if (commandData.command === 'getMenu') {
           setMenuItems(commandData.data)
-        } 
+        } else if (commandData.command === 'addToCart') {
+          addToCart(commandData.data)
+        }
       },
     })
   }, []);
@@ -23,19 +25,23 @@ const App = () => {
   }
 
   return (
-    <div className="App">
+    <div>
+      <h2>Cart</h2>
+        <form onSubmit={cart}>
+          <div className="App">
       { menuItems.map(menuItem => (
         <li key={ menuItem.name }>
-          { menuItem.name } - ${ menuItem.price } - { menuItem.category }
-          <button onClick={() => addToCart(menuItem)}>Add to Cart</button>
+          { menuItem.name } - { menuItem.quantity } - { menuItem.location }
         </li>
       ))}
-      <h2>Cart</h2>
+      
       { cart.map(cartItem => (
         <li key={ cartItem.name }>
-          { cartItem.name } - ${ cartItem.price } - { cartItem.category }
+          { cartItem.name } - { cartItem.quantity } - { cartItem.location }
         </li>
       ))}
+    </div>
+    </form>
     </div>
   )
 }
